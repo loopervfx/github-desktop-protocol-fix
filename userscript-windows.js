@@ -9,16 +9,20 @@
 // @grant        none
 // ==/UserScript==
 
-var links,thisLink;
+var links,thisLink,find,replace;
+
 links = document.evaluate("//a[@href]",
-    document,
-    null,
-    XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
-    null);
+	document,
+	null,
+	XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+	null);
 
 for (var i=0;i<links.snapshotLength;i++) {
-    var thisLink = links.snapshotItem(i);
 
-    thisLink.href = thisLink.href.replace(RegExp('x-github-client:\/\/(.*)'),
-                                          'github-windows://$1');
+	thisLink = links.snapshotItem(i);
+
+	find = 'x-github-client:\/\/(.*)';
+	replace = 'github-windows://$1';
+
+	thisLink.href = thisLink.href.replace(RegExp(find),replace);
 }
